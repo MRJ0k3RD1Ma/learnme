@@ -1,5 +1,6 @@
 <?php
 
+use dosamigos\tinymce\TinyMce;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,7 +13,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'cat_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Category::find()->all(),'id','name')) ?>
+    <?= $form->field($model, 'cat_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Category::find()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -20,7 +21,28 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'short')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'long')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'long')->widget(TinyMce::className(), [
+        'options' => ['rows' => 6],
+        'language' => 'ru',
+        'clientOptions' => [
+            'plugins' => [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount'
+            ],
+            'relative_urls' => false,
+            'image_advtab' => true,
+            'images_upload_url' => Yii::$app->urlManager->createUrl(['/cp/news/upload']),
+            'content_css' => [
+                '//fonts.googleapis.com/css?family=Roboto',
+                '//www.tinymce.com/css/codepen.min.css'
+            ],
+            'toolbar' => "undo redo | blocks | ' +
+                          'bold italic backcolor | alignleft aligncenter ' +
+                          'alignright alignjustify | bullist numlist outdent indent | ' +
+                          'removeformat | help",
+        ],
+    ]); ?>
 
 
     <div class="form-group">
