@@ -44,6 +44,7 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
+    <?= $form->field($model,'tag_s[]')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Tags::find()->all(),'id','name'),['class'=>'select2 form-control','multiple'=>true])?>
 
     <div class="form-group">
         <?= Html::submitButton('Saqlash', ['class' => 'btn btn-success']) ?>

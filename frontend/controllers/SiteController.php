@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use common\models\Category;
+use common\models\News;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -76,6 +78,27 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionNews($id){
+
+        $model = News::find()->where(['cat_id' => $id])->all();
+
+        return $this->render('news', [
+            'model' => $model,
+            'cat'=>Category::findOne($id),
+        ]);
+
+    }
+
+    public function actionView($id){
+
+            $model = News::findOne($id);
+
+            return $this->render('view', [
+                'model' => $model,
+            ]);
+
     }
 
     /**

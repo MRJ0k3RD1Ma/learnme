@@ -23,6 +23,7 @@ use Yii;
  */
 class News extends \yii\db\ActiveRecord
 {
+    public $tag_s;
     /**
      * {@inheritdoc}
      */
@@ -39,7 +40,7 @@ class News extends \yii\db\ActiveRecord
         return [
             [['cat_id', 'user_id'], 'integer'],
             [['short', 'long'], 'string'],
-            [['created', 'updated'], 'safe'],
+            [['created', 'updated','tag_s'], 'safe'],
             [['name', 'image'], 'string', 'max' => 255],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['cat_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],

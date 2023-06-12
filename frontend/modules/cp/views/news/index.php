@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'cat_id',
                         'value' => function (News $model) {
-                            return $model->category->name;
+                            return $model->cat->name;
                         },
                         'filter' => \yii\helpers\ArrayHelper::map(\common\models\Category::find()->all(), 'id', 'name')
                     ],

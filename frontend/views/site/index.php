@@ -1,52 +1,62 @@
-<?php
 
-/** @var yii\web\View $this */
+<div class="site-wrapper-reveal">
 
-$this->title = 'My Yii Application';
-?>
-<div class="site-index">
-    <div class="p-5 mb-4 bg-transparent rounded-3">
-        <div class="container-fluid py-5 text-center">
-            <h1 class="display-4">Congratulations!</h1>
-            <p class="fs-5 fw-light">You have successfully created your Yii-powered application.</p>
-            <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
-        </div>
+    <div class="hero-area-two-wrapper">
+        <!-- Hero Area Start -->
+        <div class="hero-area-two hero-area-overly">
+            <div class="container">
+                <div class="col-lg-12">
+                    <div class="hero-area--two-innter text-center">
+                        <h5 class="sub-title">Rekursiya va algoritmlar</h5>
+                        <h1 class="hero-title">Rekursiya</h1>
+                        <h2><span class="hero-title-small">Rekursiyalar, Algoritmlar, Darslar</span></h2>
+                        <div class="hero-two-tag">
+                            <?php foreach (\common\models\Tags::find()->all() as $item):?>
+                                <a href="<?= Yii::$app->urlManager->createUrl(['/site/tags'])?>" class="btn-outline-2 btn-large"><?= $item->name?></a>
+                            <?php endforeach;?>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- Hero Area End -->
     </div>
 
-    <div class="body-content">
+</div>
 
+<!-- Recent Article Area Start -->
+<div class="recent-article-area section-space--pb_120">
+    <div class="container">
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div class="col-lg-12">
+                <div class="section-title text-center section-border-bottom">
+                    <h2>So'ngi maqolalar</h2>
+                </div>
             </div>
         </div>
+        <div class="row row--30">
+            <?php foreach (\common\models\News::find()->orderBy(['id'=>SORT_DESC])->limit(9)->all() as $item):?>
+                <div class="col-lg-4 col-md-6">
+                <!-- Single Most Populer Item Start -->
+                <div class="single-most-populer-item" data-aos="fade-up">
+                    <a href="<?= Yii::$app->urlManager->createUrl(['/site/view','id'=>$item->id])?>" class="most-populer-thum">
+                        <img src="/upload/news/<?= $item->image?>" alt="" />
+                    </a>
+                    <div class="most-populer-content">
+                        <h3 class="title"><a href="<?= Yii::$app->urlManager->createUrl(['/site/view','id'=>$item->id])?>"><?= $item->name ?></a>
+                        </h3>
+                        <p class="dec mt-2"><?= $item->short?></p>
+                        <div class="most-populer-post-meta">
+                                        <span class="post-date">
+                                        <a href="#"><?= date('Y, d M',strtotime($item->created))?></a>
+                                    </span>
+                        </div>
+                    </div>
+                </div><!-- Single Most Populer Item End -->
+            </div>
+            <?php endforeach; ?>
 
+        </div>
     </div>
 </div>
+<!-- Recent Article Area End -->

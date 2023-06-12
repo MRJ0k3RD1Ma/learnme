@@ -4,13 +4,13 @@
 /** @var string $content */
 
 use common\widgets\Alert;
-use frontend\assets\AppAsset;
+use frontend\assets\BackAsset;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 
-AppAsset::register($this);
+BackAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -22,61 +22,124 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="d-flex flex-column h-100">
+<body class="theme-color-two">
 <?php $this->beginBody() ?>
 
-<header>
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-    }
 
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
-        'items' => $menuItems,
-    ]);
-    if (Yii::$app->user->isGuest) {
-        echo Html::tag('div',Html::a('Login',['/site/login'],['class' => ['btn btn-link login text-decoration-none']]),['class' => ['d-flex']]);
-    } else {
-        echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout text-decoration-none']
-            )
-            . Html::endForm();
-    }
-    NavBar::end();
-    ?>
-</header>
 
-<main role="main" class="flex-shrink-0">
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+
+<?= $this->render('_header')?>
+
+<div id="main-wrapper">
+    <?= $content?>
+</div>
+
+
+
+
+<!--======  footer area =======-->
+<footer class="footer-area footer-two">
+    <div class="footer-top-area">
+        <div class="container-fluid container-custom-xl">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <a href="index.html">
+                                <img src="/design/images/logo-2.png" alt="">
+                            </a>
+                        </div>
+                        <p>Bu sayt orqali siz dasturlashdagi eng qiziqarli yo'nalishlardan biri rekursiyalar va algoritmlarni o'rganishingiz mumkin.
+                        </p>
+                        <ul class="footer-socail-share">
+                            <li><a href="#"><i class="icofont-facebook"></i></a></li>
+                            <li><a href="#"><i class="icofont-skype"></i></a></li>
+                            <li><a href="#"><i class="icofont-twitter"></i></a></li>
+                            <li><a href="#"><i class="icofont-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="footer-menu-widget">
+
+                        <div class="single-footer-menu"  style="width: 49%">
+                            <div class="footer-widget-title">
+                                <h4 class="title">Biz haqimizda</h4>
+                            </div>
+                            <ul class="footer-widget-menu-list">
+                                <li><a href="#!">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad cupiditate explicabo ipsum natus numquam quae quod ratione tempora ut vitae. Alias commodi est hic inventore itaque nobis nulla ratione reprehenderit.</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="single-footer-menu" style="width: 49%">
+                            <div class="footer-widget-title">
+                                <h4 class="title">Foydali</h4>
+                            </div>
+                            <ul class="footer-widget-menu-list">
+                                <li><a href="#!">Algo.ubtuit.uz</a></li>
+                                <li><a href="#!">leetcode.com</a></li>
+                                <li><a href="#!">codeforces.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 order-lg-3 order-2">
+                    <div class="footer-widget footer-subscribe-area">
+                        <div class="footer-widget-title">
+                            <h4 class="title">Obuna bo`lish</h4>
+                        </div>
+                        <div class="footer-subscribe-wrap">
+                            <div class="single-input">
+                                <input type="text" placeholder="Ismingiz">
+                            </div>
+                            <div class="single-input">
+                                <input type="email" placeholder="Email manzil">
+                            </div>
+                            <div class="button-box">
+                                <button class="btn-primary btn-bg-2 btn-large" type="submit">Obuna bo`lish</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</main>
-
-<footer class="footer mt-auto py-3 text-muted">
-    <div class="container">
-        <p class="float-start">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-end"><?= Yii::powered() ?></p>
+    <div class="footer-bottom-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="copy-right-center">
+                        <p>© 2021 <a href="#">Bunzo</a>. Made with ❤️ by <a target="_blank" rel="noopener" href="https://hasthemes.com/">HasThemes</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
+<!--=====  End of footer area ========-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--====================  scroll top ====================-->
+<a href="#" class="scroll-top" id="scroll-top">
+    <i class="arrow-top icofont-swoosh-up"></i>
+    <i class="arrow-bottom icofont-swoosh-up"></i>
+</a>
+
 
 <?php $this->endBody() ?>
 </body>
